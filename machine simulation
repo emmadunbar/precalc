@@ -1,1 +1,56 @@
+import random
+#imports the random function to allow random numbers to be selected later on
 
+N=789
+D=9
+G=99
+K=91
+W=83
+M=59
+S=4
+#selects the constant numbers throughout the simulation, these can be changed if you want
+
+list0=[]
+#creates a blank lists to be added to later
+
+parts=(random.randint(0,100))
+#generates a random number for the number of adjustments that will be set correctly, to see what happens when this number changes, run the program again
+for ss in range(1,20):
+    for d in range(1):    
+#runs the simulation 20 times each with a different sample part size, and then runs each different sample part size one time
+        total=0
+#sets total cost to 0
+        if parts in range(0,80):
+            pg=(G/100)*ss
+            totalparts=(G/100)*N
+        
+        if parts in range(80,95):
+            pg=(K/100)*ss
+            totalparts=(K/100)*N
+        
+        if parts in range(95,100):
+            pg=(W/100)*ss
+            totalparts=(W/100)*N
+#each if statement is for a different amount of adjustments set correctly, both for the first, one for the second, and none for the third. It then determines the number of sample parts that are good and the total number of parts that are good after that.
+        pag=round(pg)
+#rounds the number of good sample parts to a whole number        
+        if pag < ss:
+            total=total+M
+            totalparts=(G/100)*N
+#if the number of good sample parts (pag) is less than the total (ss), then the total cost goes up by M, the cost to call the mechanic, and the new amount of total good parts goes up to if both adjustments were set correctly
+        
+        total=(total+(N-totalparts)*D+ss*(S))
+        totalr=round(total)
+        list0=list0+[totalr]
+#finds the new total cost by adding the previous total cost, either 0 or the cost of the mechanic, to the cost of defective parts and the cost of the sample parts. Then this gets rounded, and added to a list of all the total cost for each new sample size. After this the loop runs through again with the total cost being set back to 0 for a new sample size, and the previous total cost stored into list0
+
+  
+best_cost=min(list0)
+best_ss=list0.index(best_cost)+1
+#finds the smallest value (lowest total cost) in the list of all the various costs of different sample sizes, and it’s position (the amount of sample parts run for that loop)
+
+print("the best number of sample parts to run:")
+print(best_ss)
+print("the minimum cost:")
+print(best_cost)
+#prints the lowest cost and best sample size
